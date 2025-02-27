@@ -1,9 +1,19 @@
 import './App.css';
-
+import {data} from './sliderImage';
+import {card} from './cards.js';
+import { MdChevronLeft,MdChevronRight } from 'react-icons/md';
 function App() {
+  const sliderLeft=()=>{
+    let slider=document.getElementById('scroll')
+    slider.scrollLeft=slider.scrollLeft-1040
+  };
+  const sliderRight=()=>{
+    let slider=document.getElementById('scroll')
+    slider.scrollLeft=slider.scrollLeft+1040
+  };
   return (
     <div className="App">
-      <section id='section' className='w-[100%] h-[100%] bg-[url("assets/images/background.jpg")] bg-center bg-cover'>
+      <section id='section' className='w-[100%] h-[100%] bg-[url("assets/images/background.jpg")]'>
       {/* Banner section */}
       <div className='w-[100%] h-[100%] bg-[rgba(0,0,0,0.5)]'>
         <header className="max-w-[1170px] mx-auto sm:px-[0px] px-1">
@@ -40,30 +50,39 @@ function App() {
       {/* Banner end section */}
 
       {/* Content start section */}
-        <div className="w-[100%] h-[500px] border-t-[5px] bg-gradient-to-b from-[#262525] to-[#000] border-t-[rgb(198,9,20)] rounded-t-[50%_20px]">
+        <div className="w-[100%] border-t-[5px] bg-gradient-to-b from-[#262525] to-[#000] border-t-[rgb(198,9,20)] rounded-t-[50%_20px]">
+          {/* Horizontal slider start section */}
           <div className='text-[white] w-[100%] sm:py-[100px] py-[70px]  sm:px-[60px] px-[30px]'>
-            <h2 className='sm:text-[30px] text-[20px]'>Trending Now</h2>
-            <div className='grid sm:grid-cols-5 grid-cols-2 gap-1 md:px-5 px-3 mt-[10px] max-w-[100%]'>
-              <div>
-              <img src="/images/image_1.jpg"/>
+            <h2 className='sm:text-[30px] text-[25px] sm:px-[80px] px-4'>Trending Now</h2>
+            <div className='relative flex justify-center items-center md:px-[115px] px-[20px] mt-[15px] max-w-[100%]'>
+            <MdChevronLeft className='opacity-50 shadow-lg w-[50px] h-[160px] cursor-pointer hover:opacity-100' onClick={sliderLeft}/>
+              <div id="scroll" className='flex w-full overflow-x-scroll scroll-smooth gap-4'>
+                {data.map((v)=>{
+                  return (
+                    <img src={v.image} alt="Not found" className='w-[220px] cursor-pointer rounded hover:scale-105 ease-in-out duration-1000'/> 
+                  )
+                })}
               </div>
-              <div>
-              <img src="/images/image_2.jpg"/>
-              </div>
-              <div>
-              <img src="/images/image_3.jpg"/>
-              </div>
-              <div>
-              <img src="/images/image_4.jpg"/>
-              </div>
-              <div>
-              <img src="/images/image_5.jpg"/>
-              </div>
-              
-              
+            <MdChevronRight className='opacity-50 shadow-lg w-[50px] h-[160px] cursor-pointer hover:opacity-100' onClick={sliderRight}/>
             </div>
           </div>
-
+          {/* Horizontal slider end section */}
+          {/* Cards section */}
+          <div>
+              <h2 className='text-[white] sm:text-[30px] text-[25px] sm:px-[135px] px-4'>More reasons to join</h2>
+              <div className='sm:px-[140px] px-[20px] grid sm:grid-cols-4 grid-cols-1 gap-4 mt-4'>
+                {card.map((p)=>{
+                  return(
+                    <div className='sm:w-[300px] w-[100%] sm:h-[300px] h-[200px] bg-gradient-to-br from-[#192144] to-[#3b192a]  rounded-3xl p-4'>
+                    <h2 className='text-[white] text-[25px] text-bold subpixel-antialiased'>{p.title}</h2>
+                    <p className='text-[white] mt-[10px] text-[17px] text-bold'>{p.desc}</p>  
+                    {p.svg}
+                  </div>
+                )
+                })}
+              </div>
+          </div>
+          {/* Cards end section */}
         </div>
       {/* Content end section */}
       </section>
