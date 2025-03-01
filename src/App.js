@@ -2,6 +2,11 @@ import './App.css';
 import {data} from './sliderImage';
 import {card} from './cards.js';
 import { MdChevronLeft,MdChevronRight } from 'react-icons/md';
+import { useState } from 'react';
+import {questions} from './questionList.js';
+import {contents} from './footer.js';
+
+
 function App() {
   const sliderLeft=()=>{
     let slider=document.getElementById('scroll')
@@ -11,11 +16,15 @@ function App() {
     let slider=document.getElementById('scroll')
     slider.scrollLeft=slider.scrollLeft+1040
   };
+  let [showq,setshowq]=useState(null)
+  const description=(value)=>{
+    setshowq(showq===value?null:value)
+  }
   return (
     <div className="App">
       <section id='section' className='w-[100%] h-[100%] bg-[url("assets/images/background.jpg")]'>
       {/* Banner section */}
-      <div className='w-[100%] h-[100%] bg-[rgba(0,0,0,0.5)]'>
+      <div className='w-[100%] h-[100%] bg-[rgba(7,7,7,0.7)] '>
         <header className="max-w-[1170px] mx-auto sm:px-[0px] px-1">
           <div className='grid sm:grid-cols-2 grid-cols-[30%_auto] p-2 items-center relative '>
             <figure>
@@ -50,11 +59,11 @@ function App() {
       {/* Banner end section */}
 
       {/* Content start section */}
-        <div className="w-[100%] border-t-[5px] bg-gradient-to-b from-[#262525] to-[#000] border-t-[rgb(198,9,20)] rounded-t-[50%_20px]">
+        <div className="w-[100%] h-[100%] border-t-[5px] bg-gradient-to-b from-[#262525] to-[#000] border-t-[rgb(198,9,20)] rounded-t-[50%_20px]">
           {/* Horizontal slider start section */}
           <div className='text-[white] w-[100%] sm:py-[100px] py-[70px]  sm:px-[60px] px-[30px]'>
-            <h2 className='sm:text-[30px] text-[25px] sm:px-[80px] px-4'>Trending Now</h2>
-            <div className='relative flex justify-center items-center md:px-[115px] px-[20px] mt-[15px] max-w-[100%]'>
+            <h2 className='sm:text-[30px] text-[25px] lg:px-[80px] sm:px-[25px] px-4'>Trending Now</h2>
+            <div className='relative flex justify-center items-center lg:px-[115px] sm:px-[60px] px-[10px] mt-[15px] max-w-[100%]'>
             <MdChevronLeft className='opacity-50 shadow-lg w-[50px] h-[160px] cursor-pointer hover:opacity-100' onClick={sliderLeft}/>
               <div id="scroll" className='flex w-full overflow-x-scroll scroll-smooth gap-4'>
                 {data.map((v)=>{
@@ -67,10 +76,11 @@ function App() {
             </div>
           </div>
           {/* Horizontal slider end section */}
+
           {/* Cards section */}
           <div>
-              <h2 className='text-[white] sm:text-[30px] text-[25px] sm:px-[135px] px-4'>More reasons to join</h2>
-              <div className='sm:px-[140px] px-[20px] grid sm:grid-cols-4 grid-cols-1 gap-4 mt-4'>
+              <h2 className='text-[white] sm:text-[30px] text-[25px] lg:px-[135px] sm:px-[75px] px-4'>More reasons to join</h2>
+              <div className='max-w-[100%] lg:px-[140px] sm:px-[85px] px-[20px] grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 lg:gap-5 gap-2 mt-4'>
                 {card.map((p)=>{
                   return(
                     <div className='sm:w-[300px] w-[100%] sm:h-[300px] h-[200px] bg-gradient-to-br from-[#192144] to-[#3b192a]  rounded-3xl p-4'>
@@ -83,6 +93,61 @@ function App() {
               </div>
           </div>
           {/* Cards end section */}
+          
+          {/* Descrition section */}
+          <div className='mt-[100px]'>
+              <h2 className='text-[white] sm:text-[30px] text-[25px] lg:px-[135px] sm:px-[75px] px-4'>Frequently Asked Questions</h2>
+              <div className='max-w-[100%] lg:px-[150px] sm:px-[85px] px-[45px] mt-[20px]'>
+                {questions.map((v)=>{
+                  return(
+                    <div>
+                      <div className='max-w-[100%] h-[80px] bg-[#2D2D2D] text-[white] flex justify-between items-center  px-[25px] cursor-pointer mb-2 hover:bg-[#414040]'  onClick={()=>description(v.id)}>
+                        <p className='text-[25px] font-sans'>{v.title}</p>
+                        <button className='btn text-[50px] font-serif border-none'>{(showq===(v.id))?'×':'+'}</button>
+                      </div>
+                      <div className={`max-w-[100%] bg-[#2D2D2D] mt-1 mb-1 ${showq===(v.id)?'visible':'hidden'}`}>
+                        <p className='text-[25px] font-sans p-5 text-[white]'>{v.desc}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              
+          </div>
+          {/* Description end section */}
+
+          {/* Signup section */}
+          <div className='max-w-[900px] mx-auto mt-[50px]'>
+            <p className='text-[white] text-center sm:text-[22px] text-[17px] mb-5'>Ready to watch? Enter your email to create or restart your membership.</p>
+            <form className='grid sm:grid-cols-[70%_auto] grid-cols-1 gap-2 sm:px-[10px] px-[30px]'>
+              <input type='email'placeholder='Email address' className=' border-[1px] border-[#5e5f5f] text-[white] bg-[rgba(0,0,0,0.4)] pl-[20px] h-[50px] rounded-md'/>
+              <button type='submit' className='bg-[#dc0913] rounded-md text-[23px] sm:py-[0px] py-[6px] hover:bg-[rgb(198,9,20)] duration-300'>Get started &gt;</button>
+            </form>
+          </div>
+          {/* Signup end section */}
+          
+          {/* Footer section */}
+          <div className='max-w-[100%] lg:px-[150px] px-7 mt-[60px]'>
+            <p className='text-[white]'>Questions? Call 000-800-919-1743</p>
+            <div className='max-w-[100%] mt-[40px] grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1'>
+              {contents.map((value)=>{
+                return(
+                <p className='text-[#c6c3c3] underline decoration-solid leading-loose'>{value.title}</p>
+                )
+              })}
+            </div>
+            <div className='relative mt-[60px]'>
+                <svg className='text-white absolute top-[10px] left-[7px]' xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 16 16" width="16" height="16" data-icon="LanguagesSmall" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7668 5.33333L10.5038 5.99715L9.33974 8.9355L8.76866 10.377L7.33333 14H9.10751L9.83505 12.0326H13.4217L14.162 14H16L12.5665 5.33333H10.8278H10.7668ZM10.6186 9.93479L10.3839 10.5632H11.1036H12.8856L11.6348 7.2136L10.6186 9.93479ZM9.52722 4.84224C9.55393 4.77481 9.58574 4.71045 9.62211 4.64954H6.41909V2H4.926V4.64954H0.540802V5.99715H4.31466C3.35062 7.79015 1.75173 9.51463 0 10.4283C0.329184 10.7138 0.811203 11.2391 1.04633 11.5931C2.55118 10.6795 3.90318 9.22912 4.926 7.57316V12.6667H6.41909V7.51606C6.81951 8.15256 7.26748 8.76169 7.7521 9.32292L8.31996 7.88955C7.80191 7.29052 7.34631 6.64699 6.9834 5.99715H9.06968L9.52722 4.84224Z" fill="currentColor"></path></svg>
+                <select className='bg-[#1d1d1d] border-[1px] border-white text-white sm:p-[5px_25px] p-[5px_20px] rounded-[5px]'>
+                  <option value="">English</option>
+                  <option value="">Hindi</option>
+                </select>
+              </div>
+              <p className='text-[#c6c3c3] mt-[30px] pb-[50px]'>Netflix India</p>
+            
+          </div>
+          {/* Footer end section */}
+
         </div>
       {/* Content end section */}
       </section>
