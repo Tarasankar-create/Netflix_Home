@@ -10,11 +10,25 @@ import {contents} from './footer.js';
 function App() {
   const sliderLeft=()=>{
     let slider=document.getElementById('scroll')
-    slider.scrollLeft=slider.scrollLeft-1040
+    let scrollAmount=1040
+    if (window.innerWidth<640){
+      scrollAmount=440
+    }
+    else if(window.innerWidth<1024){
+      scrollAmount=640
+    }
+    slider.scrollLeft=slider.scrollLeft-scrollAmount;
   };
   const sliderRight=()=>{
     let slider=document.getElementById('scroll')
-    slider.scrollLeft=slider.scrollLeft+1040
+    let scrollAmount=1040
+    if (window.innerWidth<640){
+      scrollAmount=440
+    }
+    else if(window.innerWidth<1024){
+      scrollAmount=640
+    }
+    slider.scrollLeft=slider.scrollLeft+scrollAmount;
   };
   let [showq,setshowq]=useState(null)
   const description=(value)=>{
